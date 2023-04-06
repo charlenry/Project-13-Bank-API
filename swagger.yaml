@@ -13,8 +13,8 @@ paths:
     post:
       tags:
         - "User Module"
-      summary: "Login"
-      description: "API for Login"
+      summary: "To Login"
+      description: "Endpoint for Login"
       parameters:
         - in: "body"
           name: "body"
@@ -41,8 +41,8 @@ paths:
     post:
       tags:
         - "User Module"
-      summary: "Signup"
-      description: "API for Signup"
+      summary: "To Signup"
+      description: "Endpoint for Signup"
       parameters:
         - in: "body"
           name: "body"
@@ -71,8 +71,8 @@ paths:
         - Bearer: []
       tags:
         - "User Module"
-      summary: "User Profile API"
-      description: "API for fetching a user profile"
+      summary: "To fetch a user profile"
+      description: "Endpoint for fetching a user profile"
       parameters:
         - in: "header"
           name: "Authorization"
@@ -103,8 +103,8 @@ paths:
         - Bearer: []
       tags:
         - "User Module"
-      summary: "User Profile API"
-      description: "API for updating a user profile"
+      summary: "To update a user profile"
+      description: "Endpoint for updating a user profile"
       parameters:
         - in: "header"
           name: "Authorization"
@@ -142,8 +142,8 @@ paths:
         - Bearer: []
       tags:
         - "Transactions Module"
-      summary: "User Transactions API"
-      description: "API for fetching a user transactions"
+      summary: "To fetch a user transactions"
+      description: "Endpoint for fetching a user transactions"
       parameters:
         - in: "header"
           name: "Authorization"
@@ -171,8 +171,8 @@ paths:
         - Bearer: []
       tags:
         - "Transactions Module"
-      summary: "Transaction Category API"
-      description: "API for updating a transaction category"
+      summary: "To update a user transaction category"
+      description: "Endpoint for updating a user transaction category"
       parameters:
         - in: "header"
           name: "Authorization"
@@ -206,8 +206,8 @@ paths:
         - Bearer: []
       tags:
         - "Transactions Module"
-      summary: "Transaction Notes API"
-      description: "API for updating transaction notes"
+      summary: "To update a user transaction notes"
+      description: "Endpoint for updating a user transaction notes"
       parameters:
         - in: "header"
           name: "Authorization"
