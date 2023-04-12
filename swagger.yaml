@@ -137,7 +137,7 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
   /user/transactions:
-    post:
+    get:
       security:
         - Bearer: []
       tags:
@@ -165,15 +165,54 @@ paths:
           description: "Internal Server Error"
           schema:
             $ref: "#/definitions/ErrorResponse"
-  /user/transaction/category:
+  /user/transaction/{transactionId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - "Transactions Module"
+      summary: "To fetch a user transaction details by ID"
+      description: "Endpoint for fetching a user transactions"
+      parameters:
+        - in: "path"
+          name: "transactionId"
+          description: "ID of a transaction"
+          required: true
+          type: "integer"
+        - in: "header"
+          name: "Authorization"
+          description: "Attach Bearer JWT token"
+          required: true
+          type: "string"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Transactions retrieved successfully"
+          schema:
+            $ref: "#/definitions/TransactionResponse"
+        "401":
+          description: "JWT expired"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /user/transaction/{transactionId}/category:
     put:
       security:
         - Bearer: []
       tags:
         - "Transactions Module"
-      summary: "To update a user transaction category"
+      summary: "To update a user transaction category by ID"
       description: "Endpoint for updating a user transaction category"
       parameters:
+        - in: "path"
+          name: "transactionId"
+          description: "ID of a transaction"
+          required: true
+          type: "integer"
         - in: "header"
           name: "Authorization"
           description: "Attach Bearer JWT token"
@@ -191,7 +230,7 @@ paths:
         "200":
           description: "Transaction category updated successfully"
           schema:
-            $ref: "#/definitions/TransactionsResponse"
+            $ref: "#/definitions/TransactionResponse"
         "401":
           description: "JWT expired"
           schema:
@@ -200,15 +239,20 @@ paths:
           description: "Internal Server Error"
           schema:
             $ref: "#/definitions/ErrorResponse"
-  /user/transaction/notes:
-    put:
+  /user/transaction/{transactionId}/notes:
+    post:
       security:
         - Bearer: []
       tags:
         - "Transactions Module"
-      summary: "To update a user transaction notes"
-      description: "Endpoint for updating a user transaction notes"
+      summary: "To add a user transaction notes by ID"
+      description: "Endpoint for adding a user transaction notes"
       parameters:
+        - in: "path"
+          name: "transactionId"
+          description: "ID of a transaction"
+          required: true
+          type: "integer"
         - in: "header"
           name: "Authorization"
           description: "Attach Bearer JWT token"
@@ -216,7 +260,7 @@ paths:
           type: "string"
         - in: "body"
           name: "body"
-          description: "Update a user transaction attribute"
+          description: "Add a user transaction notes"
           required: true
           schema:
             $ref: "#/definitions/TransactionNotes"
@@ -224,9 +268,87 @@ paths:
         - "application/json"
       responses:
         "200":
-          description: "Transaction notes updated successfully"
+          description: "Transaction notes added successfully"
           schema:
-            $ref: "#/definitions/TransactionsResponse"
+            $ref: "#/definitions/TransactionResponse"
+        "401":
+          description: "JWT expired"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - "Transactions Module"
+      summary: "To update a user transaction notes by ID"
+      description: "Endpoint for updating a user transaction notes"
+      parameters:
+        - in: "path"
+          name: "transactionId"
+          description: "ID of a transaction"
+          required: true
+          type: "integer"
+        - in: "header"
+          name: "Authorization"
+          description: "Attach Bearer JWT token"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          description: "Update a user transaction notes"
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionNotes"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Transaction notes added successfully"
+          schema:
+            $ref: "#/definitions/TransactionResponse"
+        "401":
+          description: "JWT expired"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - "Transactions Module"
+      summary: "To delete a user transaction notes by ID"
+      description: "Endpoint for deleting a user transaction notes"
+      parameters:
+        - in: "path"
+          name: "transactionId"
+          description: "ID of a transaction"
+          required: true
+          type: "integer"
+        - in: "header"
+          name: "Authorization"
+          description: "Attach Bearer JWT token"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          description: "Update a user transaction notes"
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionNotes"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Transaction notes deleted successfully"
+          schema:
+            $ref: "#/definitions/TransactionResponse"
         "401":
           description: "JWT expired"
           schema:
@@ -323,8 +445,18 @@ definitions:
           transactions:
             type: "array"
             items:
-              $ref: "#/definitions/Transactions"
-  Transactions:
+              $ref: "#/definitions/Transaction"
+  TransactionResponse:
+    type: "object"
+    properties:
+      status:
+        type: "integer"
+      message:
+        type: "string"
+      body:
+        type: "object"
+        $ref: "#/definitions/Transaction"
+  Transaction:
     type: "object"
     properties:
       transactionId:
